@@ -1,0 +1,13 @@
+# Firebase 설정 파일 무시
+GoogleService-Info.plist
+
+# Xcode 관련 빌드 파일 무시
+DerivedData/
+build/
+
+# SwiftPM 관련 캐시 무시
+.swiftpm/
+.package.resolved
+
+# Xcode 프로젝트 사용자 설정 무시
+xcuserdata/
