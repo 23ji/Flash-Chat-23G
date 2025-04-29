@@ -14,6 +14,7 @@ class ChatViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var messageTextfield: UITextField!
   
+  
   private var messages: [Message] = [
       Message(sender: "1@2.com", body: "Hey!"),
       Message(sender: "1@3.com", body: "Hi!"),
@@ -26,8 +27,17 @@ class ChatViewController: UIViewController {
     self.navigationItem.hidesBackButton = true
   }
   
+  
   @IBAction func sendPressed(_ sender: UIButton) {
   }
   
+  @IBAction func logout(_ sender: UIBarButtonItem) {
+    do {
+      try Auth.auth().signOut() // ?
+      self.navigationController?.popToRootViewController(animated: true)
+    } catch let error as NSError {
+      print(error)
+    }
+  }
   
 }
