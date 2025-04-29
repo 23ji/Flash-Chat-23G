@@ -10,17 +10,24 @@ import FirebaseAuth
 import UIKit
 
 class ChatViewController: UIViewController {
-
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var messageTextfield: UITextField!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-    
-    @IBAction func sendPressed(_ sender: UIButton) {
-    }
-    
-
+  
+  @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var messageTextfield: UITextField!
+  
+  private var messages: [Message] = [
+      Message(sender: "1@2.com", body: "Hey!"),
+      Message(sender: "1@3.com", body: "Hi!"),
+      Message(sender: "1@5.com", body: "Hello!")
+    ]
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    title = "Flash Chat"
+    self.navigationItem.hidesBackButton = true
+  }
+  
+  @IBAction func sendPressed(_ sender: UIButton) {
+  }
+  
+  
 }
