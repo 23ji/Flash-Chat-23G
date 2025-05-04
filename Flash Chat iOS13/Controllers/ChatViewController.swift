@@ -23,12 +23,14 @@ class ChatViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.tableView.dataSource = self
     title = "Flash Chat"
     self.navigationItem.hidesBackButton = true
   }
   
   
   @IBAction func sendPressed(_ sender: UIButton) {
+    
   }
   
   @IBAction func logout(_ sender: UIBarButtonItem) {
@@ -39,5 +41,14 @@ class ChatViewController: UIViewController {
       print(error)
     }
   }
+}
+
+extension ChatViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 5
+  }
   
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    return UITableViewCell()
+  }
 }
