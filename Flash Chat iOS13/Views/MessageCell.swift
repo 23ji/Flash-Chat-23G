@@ -11,10 +11,13 @@ import UIKit
 class MessageCell: UITableViewCell {
   
   //컴포넌트 연결하기
+  @IBOutlet weak var messageBubble: UIView!
+  @IBOutlet weak var label: UILabel!
+  @IBOutlet weak var sender: UIImageView!
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    // Initialization code
+    self.messageBubble.layer.cornerRadius = self.messageBubble.frame.height / 5
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {
