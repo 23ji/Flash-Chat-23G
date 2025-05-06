@@ -19,17 +19,38 @@ class ChatViewController: UIViewController {
   let db = Firestore.firestore()
   
   
-  private var messages: [Message] = [
-    Message(sender: "1@2.com", body: "Hey!"),
-    Message(sender: "1@3.com", body: "Hi!"),
-    Message(sender: "1@5.com", body: "Hello!")
-  ]
+  private var messages: [Message] = []
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.tableView.dataSource = self
     title = "Flash Chat"
     self.navigationItem.hidesBackButton = true
+    self.tableView.register(
+      UINib(nibName: K.cellNibName, bundle: nil),
+      forCellReuseIdentifier: K.cellIdentifier
+    )
+    self.loadMessages()
+  }
+  
+  private func loadMessages() {
+    self.db.collection(K.FStore.collectionName).getDocuments { querySnapShot, error in
+      if let snapShotDocuments = querySnapShot?.documents {
+        for doc in snapShotDocuments {
+          let data = doc.data()
+          
+          if let sender = data[K.FStore.senderField] as? String,
+             let body = data[K.FStore.bodyField] as? String {
+            let message = Message(sender: sender, body: body)
+            self.messages.append(message)
+          }
+        }
+        DispatchQueue.main.async {
+          self.tableView.reloadData()
+        }
+      }
+    }
   }
   
   
