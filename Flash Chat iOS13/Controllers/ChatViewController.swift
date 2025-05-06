@@ -34,25 +34,6 @@ class ChatViewController: UIViewController {
     self.loadMessages()
   }
   
-  private func loadMessages() {
-    self.db.collection(K.FStore.collectionName).getDocuments { querySnapShot, error in
-      if let snapShotDocuments = querySnapShot?.documents {
-        for doc in snapShotDocuments {
-          let data = doc.data()
-          
-          if let sender = data[K.FStore.senderField] as? String,
-             let body = data[K.FStore.bodyField] as? String {
-            let message = Message(sender: sender, body: body)
-            self.messages.append(message)
-          }
-        }
-        DispatchQueue.main.async {
-          self.tableView.reloadData()
-        }
-      }
-    }
-  }
-  
   
   @IBAction func sendPressed(_ sender: UIButton) {
     guard let messageSender = Auth.auth().currentUser?.email else { return }
@@ -74,14 +55,38 @@ class ChatViewController: UIViewController {
       print(error)
     }
   }
+  
+  private func loadMessages() {
+    self.db.collection(K.FStore.collectionName).getDocuments { querySnapShot, error in
+      if let snapShotDocuments = querySnapShot?.documents {
+        for doc in snapShotDocuments {
+          let data = doc.data()
+          
+          if let sender = data[K.FStore.senderField] as? String,
+             let body = data[K.FStore.bodyField] as? String {
+            let message = Message(sender: sender, body: body)
+            self.messages.append(message)
+          }
+        }
+        DispatchQueue.main.async {
+          self.tableView.reloadData()
+        }
+      }
+    }
+  }
 }
 
 extension ChatViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5
+    return self.messages.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    return UITableViewCell()
+    guard let cell = self.tableView.dequeueReusableCell(
+      withIdentifier: K.cellIdentifier,
+      for: indexPath
+    ) as? MessageCell else { return UITableViewCell() }
+    cell.label.text = self.messages[indexPath.row].body
+    return cell
   }
 }
