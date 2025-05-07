@@ -46,6 +46,14 @@ class ChatViewController: UIViewController {
   
   // 복습하기 ⭐️
   @IBAction func sendPressed(_ sender: UIButton) {
+    guard let sender = Auth.auth().currentUser?.email else { return }
+    guard let body = self.messageTextfield.text else { return }
+    guard body.isEmpty == false else { return }
+    
+    db.collection(K.FStore.collectionName).addDocument(data: [
+      K.FStore.senderField: sender,
+      K.FStore.bodyField: body
+    ])
   }
   
   // 복습하기 ⭐️
