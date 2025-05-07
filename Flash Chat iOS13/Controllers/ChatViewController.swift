@@ -19,7 +19,7 @@ class ChatViewController: UIViewController {
   private var messages: [Message] = []
   
   let db = Firestore.firestore()
-    
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,9 +33,22 @@ class ChatViewController: UIViewController {
     self.loadMessages()
   }
   
+  
+  // 복습하기 ⭐️
+  @IBAction func logout(_ sender: UIBarButtonItem) {
+    do { 
+      try Auth.auth().signOut()
+      self.navigationController?.popToRootViewController(animated: true)
+    } catch let error as NSError {
+      print(error)
+    }
+  }
+  
+  // 복습하기 ⭐️
   @IBAction func sendPressed(_ sender: UIButton) {
   }
   
+  // 복습하기 ⭐️
   func loadMessages() {
     db.collection(K.FStore.collectionName).getDocuments { querySnapShot, error in
       guard let snapShotData = querySnapShot?.documents else { return }
