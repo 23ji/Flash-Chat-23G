@@ -53,7 +53,7 @@
                                     <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="a5p-KN-CeV"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="" id="a5p-KN-CeV"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -169,7 +169,7 @@
                     <connections>
                         <outlet property="emailTextfield" destination="u72-XV-6FN" id="Nfc-8N-TNr"/>
                         <outlet property="passwordTextfield" destination="hLb-P9-NkF" id="uaM-fo-m8M"/>
-                        <segue destination="lwd-AH-u8E" kind="show" id="fDM-dj-Ewk"/>
+                        <segue destination="lwd-AH-u8E" kind="show" identifier="RegisterToChat" id="fDM-dj-Ewk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -373,7 +373,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tEH-St-mEo"/>
+        <segue reference="fDM-dj-Ewk"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="paperplane.fill" catalog="system" width="32" height="32"/>
