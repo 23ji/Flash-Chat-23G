@@ -62,12 +62,9 @@ extension ChatViewController: UITableViewDataSource {
     return self.messages.count
   }
   
+  // 복습하기 ⭐️
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = self.tableView.dequeueReusableCell(
-      withIdentifier: K.cellIdentifier,
-      for: indexPath) as? MessageCell else { return UITableViewCell() }
-    cell.label.text = self.messages[indexPath.row].body
-    return cell
+    return UITableViewCell()
   }
   
   
