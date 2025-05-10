@@ -62,6 +62,9 @@ class ChatViewController: UIViewController {
         var message = Message(sender: sender, body: body)
         self.messages.append(message)
       }
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
     }
   }
   
@@ -75,7 +78,9 @@ extension ChatViewController: UITableViewDataSource {
   
   // 복습하기 ⭐️
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    return UITableViewCell()
+    let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
+    cell.label.text = self.messages[indexPath.row].body
+    return cell
   }
   
   
