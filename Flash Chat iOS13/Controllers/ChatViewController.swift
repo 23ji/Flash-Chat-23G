@@ -46,7 +46,13 @@ class ChatViewController: UIViewController {
   
   // 복습하기 ⭐️
   @IBAction func sendPressed(_ sender: UIButton) {
-    
+    guard let sender = Auth.auth().currentUser?.email else { return }
+    guard let body = messageTextfield.text else { return }
+    guard body.isEmpty == false else { return }
+    db.collection(K.FStore.collectionName).addDocument(data: [
+      "sender": sender,
+      "body": body
+    ])
   }
   
   // 복습하기 ⭐️
@@ -67,9 +73,8 @@ class ChatViewController: UIViewController {
       }
     }
   }
-  
-  
 }
+
 
 extension ChatViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,6 +87,4 @@ extension ChatViewController: UITableViewDataSource {
     cell.label.text = self.messages[indexPath.row].body
     return cell
   }
-  
-  
 }
