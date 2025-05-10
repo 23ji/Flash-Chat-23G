@@ -51,7 +51,18 @@ class ChatViewController: UIViewController {
   
   // 복습하기 ⭐️
   func loadMessages() {
-    
+    db.collection(K.FStore.collectionName).getDocuments { querySnapShot, error in
+      guard error == nil else { return }
+      guard let snapShotData = querySnapShot?.documents else { return }
+      for doc in snapShotData {
+        let data = doc.data()
+        guard let sender = data["sender"] as? String else { return }
+        guard let body = data["body"] as? String else { return }
+        
+        var message = Message(sender: sender, body: body)
+        self.messages.append(message)
+      }
+    }
   }
   
   
