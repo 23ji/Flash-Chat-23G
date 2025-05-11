@@ -378,11 +378,14 @@
             <point key="canvasLocation" x="-86.956521739130437" y="134.59821428571428"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="y7D-jv-BlJ"/>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="tEH-St-mEo"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="paperplane.fill" catalog="system" width="32" height="32"/>
+        <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <image name="textfield" width="298" height="93"/>
         <namedColor name="BrandBlue">
             <color red="0.16500000655651093" green="0.77999997138977051" blue="0.99599999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

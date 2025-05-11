@@ -28,6 +28,7 @@ class ChatViewController: UIViewController {
     self.title = "Flash chat"
     // ✅ 테이블 뷰 데이터 소스 설정
     self.tableView.dataSource = self
+    self.tableView.delegate = self
     // ✅ 테이블 뷰 register 설정
     self.tableView.register(
       UINib(nibName: K.cellNibName, bundle: nil),
@@ -72,7 +73,7 @@ class ChatViewController: UIViewController {
         guard let body = data["body"] as? String else { return }
         
         // ✅ Messgae에 sender, body로 값 올리기
-        var message = Message(sender: sender, body: body)
+        let message = Message(sender: sender, body: body)
         self.messages.append(message)
       }
       // ✅ 화면에 뿌리기
@@ -96,5 +97,11 @@ extension ChatViewController: UITableViewDataSource {
     // ✅ cell text에 indexPath.row로 해당하는 값 각각 할당
     cell.label.text = self.messages[indexPath.row].body
     return cell
+  }
+}
+
+extension ChatViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    print("tableView didSelectRowAt", indexPath)
   }
 }
