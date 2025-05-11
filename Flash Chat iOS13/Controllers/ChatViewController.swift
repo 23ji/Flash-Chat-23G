@@ -105,3 +105,9 @@ extension ChatViewController: UITableViewDelegate {
     print("tableView didSelectRowAt", indexPath)
   }
 }
+
+extension ChatViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    print("scroll")
+  }
+}
