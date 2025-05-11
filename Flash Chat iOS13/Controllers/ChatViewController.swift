@@ -108,8 +108,12 @@ extension ChatViewController: UITableViewDataSource {
     
     if self.messages[indexPath.row].sender == email {
       cell.leftImage.isHidden = true
+      cell.messageBubble.backgroundColor = UIColor(named: "BrandPurple")
+      cell.label.textColor = UIColor(named: "BrandLightPurple")
     } else {
       cell.rightImage.isHidden = true
+      cell.messageBubble.backgroundColor = UIColor(named: "BrandLightPurple")
+      cell.label.textColor = UIColor(named: "BrandPurple")
     }
     // ✅ cell text에 indexPath.row로 해당하는 값 각각 할당
     cell.label.text = self.messages[indexPath.row].body
