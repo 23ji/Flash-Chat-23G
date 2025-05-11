@@ -62,6 +62,8 @@ class ChatViewController: UIViewController {
       "body": body,
       "date": date
     ])
+    
+    self.messageTextfield.text = ""
   }
   
 
