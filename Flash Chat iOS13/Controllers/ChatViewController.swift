@@ -69,12 +69,12 @@ class ChatViewController: UIViewController {
 
   func loadMessages() {
     // ✅ Documents 불러옴
-    db.collection(K.FStore.collectionName).order(by: K.FStore.dateField).addSnapshotListener { querySnapShot, error in
+    db.collection(K.FStore.collectionName).order(by: K.FStore.dateField).addSnapshotListener { [weak self] querySnapShot, error in
       guard error == nil else { return }
       guard let snapShotData = querySnapShot?.documents else { return }
       
       // ⭐️ 왜 여기서 이렇게 초기화 해줘야하는지 생각해보기!
-      self.messages = []
+      self?.messages = []
       
       for doc in snapShotData {
         // ✅ data에 snapShotData data 할당
@@ -84,11 +84,11 @@ class ChatViewController: UIViewController {
         
         // ✅ Messgae에 sender, body로 값 올리기
         let message = Message(sender: sender, body: body)
-        self.messages.append(message)
+        self?.messages.append(message)
       }
       // ✅ 화면에 뿌리기
       DispatchQueue.main.async {
-        self.tableView.reloadData()
+        self?.tableView.reloadData()
       }
     }
   }
