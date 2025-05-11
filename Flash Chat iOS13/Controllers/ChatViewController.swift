@@ -66,6 +66,10 @@ class ChatViewController: UIViewController {
     db.collection(K.FStore.collectionName).addSnapshotListener { querySnapShot, error in
       guard error == nil else { return }
       guard let snapShotData = querySnapShot?.documents else { return }
+      
+      // ⭐️ 왜 여기서 이렇게 초기화 해줘야하는지 생각해보기!
+      self.messages = []
+      
       for doc in snapShotData {
         // ✅ data에 snapShotData data 할당
         let data = doc.data()
@@ -94,6 +98,13 @@ extension ChatViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     // ✅ MessageCell 구성하는 cell 정의
     let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
+    guard let email = Auth.auth().currentUser?.email else { return UITableViewCell() }
+    
+    if self.messages[indexPath.row].sender == email {
+      cell.leftImage.isHidden = true
+    } else {
+      cell.rightImage.isHidden = true
+    }
     // ✅ cell text에 indexPath.row로 해당하는 값 각각 할당
     cell.label.text = self.messages[indexPath.row].body
     return cell
