@@ -63,7 +63,7 @@ class ChatViewController: UIViewController {
 
   func loadMessages() {
     // ✅ Documents 불러옴
-    db.collection(K.FStore.collectionName).getDocuments { querySnapShot, error in
+    db.collection(K.FStore.collectionName).addSnapshotListener { querySnapShot, error in
       guard error == nil else { return }
       guard let snapShotData = querySnapShot?.documents else { return }
       for doc in snapShotData {
@@ -106,8 +106,8 @@ extension ChatViewController: UITableViewDelegate {
   }
 }
 
-extension ChatViewController: UIScrollViewDelegate {
-  func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    print("scroll")
-  }
-}
+//extension ChatViewController: UIScrollViewDelegate {
+//  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//    print("scroll")
+//  }
+//}
