@@ -47,8 +47,17 @@ class ChatViewController: UIViewController {
   
   
   @IBAction func sendPressed(_ sender: UIButton) {
+    guard let sender = Auth.auth().currentUser?.email else { return }
+    guard let body = self.messageTextfield.text else { return }
     
+    // ❗️복습하기
+    db.collection(K.FStore.collectionName).addDocument(data: [
+      "sender" : sender,
+      "body" : body,
+      "date" : Date().timeIntervalSince1970
+    ])
   }
+  
   
   func loadMessages() {
     db.collection(K.FStore.collectionName).addSnapshotListener { querySnapShot, error in
