@@ -17,12 +17,21 @@ class ChatViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var messageTextfield: UITextField!
   
+  private var messages: [Message] = []
+  
   let db = Firestore.firestore()
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationItem.hidesBackButton = true
     self.title = "Flash chat"
+    self.tableView.dataSource = self
+    self.tableView.register(
+      UINib(nibName: K.cellNibName, bundle: nil),
+      forCellReuseIdentifier: K.cellIdentifier
+    )
+    self.loadMessages()
   }
   
   
@@ -36,8 +45,42 @@ class ChatViewController: UIViewController {
     }
   }
   
-  // 복습하기 ⭐️
+  
   @IBAction func sendPressed(_ sender: UIButton) {
     
   }
+  
+  func loadMessages() {
+    db.collection(K.FStore.collectionName).addSnapshotListener { querySnapShot, error in
+      guard error == nil else { return }
+      
+      guard let documents = querySnapShot?.documents else { return }
+      
+      for doc in documents {
+        let data = doc.data()
+        
+        let sender = data["sender"] as! String
+        let body = data["body"] as! String
+        let message = Message(sender: sender, body: body)
+        self.messages.append(message)
+      }
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
+    }
+  }
 }
+  
+  extension ChatViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      return self.messages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      let cell = self.tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
+      
+      // ❗️ 복습하기
+      cell.label.text = self.messages[indexPath.row].body
+      return cell
+    }
+  }
