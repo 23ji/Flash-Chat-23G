@@ -60,7 +60,7 @@ class ChatViewController: UIViewController {
   
   
   func loadMessages() {
-    db.collection(K.FStore.collectionName).addSnapshotListener { querySnapShot, error in
+    db.collection(K.FStore.collectionName).order(by: K.FStore.dateField).addSnapshotListener { querySnapShot, error in
       guard error == nil else { return }
       
       guard let documents = querySnapShot?.documents else { return }
