@@ -52,17 +52,21 @@ class ChatViewController: UIViewController {
     // ✅ body에 메세지 내용 할당
     guard let body = messageTextfield.text else { return }
     guard body.isEmpty == false else { return }
+    
+    let date = Date().timeIntervalSince1970
+    
     // ✅ Firebase Forestore에 딕셔너리 구조로 업로드
     db.collection(K.FStore.collectionName).addDocument(data: [
       "sender": sender,
-      "body": body
+      "body": body,
+      "date": date
     ])
   }
   
 
   func loadMessages() {
     // ✅ Documents 불러옴
-    db.collection(K.FStore.collectionName).addSnapshotListener { querySnapShot, error in
+    db.collection(K.FStore.collectionName).order(by: K.FStore.dateField).addSnapshotListener { querySnapShot, error in
       guard error == nil else { return }
       guard let snapShotData = querySnapShot?.documents else { return }
       
