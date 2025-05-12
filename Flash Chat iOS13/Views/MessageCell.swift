@@ -13,6 +13,7 @@ class MessageCell: UITableViewCell {
   @IBOutlet weak var messageBubble: UIView!
   @IBOutlet weak var label: UILabel!
   @IBOutlet weak var rightImage: UIImageView!
+  @IBOutlet weak var leftImage: UIImageView!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -21,8 +22,11 @@ class MessageCell: UITableViewCell {
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
   }
   
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    self.leftImage.isHidden = false
+    self.rightImage.isHidden = false
+  }
 }
