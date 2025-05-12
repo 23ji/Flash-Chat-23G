@@ -62,9 +62,13 @@ class ChatViewController: UIViewController {
 
   func loadMessages() {
     // ✅ Documents 불러옴
-    db.collection(K.FStore.collectionName).getDocuments { querySnapShot, error in
+    db.collection(K.FStore.collectionName).addSnapshotListener { querySnapShot, error in
       guard error == nil else { return }
       guard let snapShotData = querySnapShot?.documents else { return }
+      
+      // 배열 초기화
+      self.messages = []
+      
       for doc in snapShotData {
         // ✅ data에 snapShotData data 할당
         let data = doc.data()
