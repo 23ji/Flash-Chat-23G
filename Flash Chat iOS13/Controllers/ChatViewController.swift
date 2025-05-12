@@ -78,7 +78,17 @@ class ChatViewController: UIViewController {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = self.tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
+      guard let email = Auth.auth().currentUser?.email else { return UITableViewCell() }
       
+      if email == self.messages[indexPath.row].sender {
+        cell.leftImage.isHidden = true
+        cell.messageBubble.backgroundColor = UIColor(named: "BrandPurple")
+        cell.label.textColor = UIColor(named: "BrandLightPurple")
+      } else {
+        cell.rightImage.isHidden = true
+        cell.messageBubble.backgroundColor = UIColor(named: "BrandLightPurple")
+        cell.label.textColor = UIColor(named: "BrandPurple")
+      }
       // ❗️ 복습하기
       cell.label.text = self.messages[indexPath.row].body
       return cell
