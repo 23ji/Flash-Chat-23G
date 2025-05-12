@@ -6,6 +6,7 @@
 //  Copyright © 2019 Angela Yu. All rights reserved.
 //
 import FirebaseCore
+import IQKeyboardManagerSwift
 
 import UIKit
 
@@ -16,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     FirebaseApp.configure()
+    IQKeyboardManager.shared.isEnabled = true
     return true
   }
   
