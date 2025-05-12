@@ -72,7 +72,7 @@ class ChatViewController: UIViewController {
         guard let body = data["body"] as? String else { return }
         
         // ✅ Messgae에 sender, body로 값 올리기
-        var message = Message(sender: sender, body: body)
+        let message = Message(sender: sender, body: body)
         self.messages.append(message)
       }
       // ✅ 화면에 뿌리기
