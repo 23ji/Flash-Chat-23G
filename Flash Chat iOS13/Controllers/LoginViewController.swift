@@ -18,16 +18,6 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func loginPressed(_ sender: UIButton) {
-      guard let email = emailTextfield.text else { return }
-      guard email.isEmpty == false else { return }
-      guard let password = passwordTextfield.text else { return }
-      guard password.isEmpty == false else { return }
       
-      Auth.auth().signIn(withEmail: email, password: password) { result, error in
-        guard error == nil else { return print("Firebase App: \(FirebaseApp.app()?.options.projectID ?? "no project")")
-
- }
-        self.performSegue(withIdentifier: "LoginToChat", sender: nil)
-      }
     }
 }
