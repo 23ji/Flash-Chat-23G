@@ -19,7 +19,6 @@ class ChatViewController: UIViewController {
   
   let db = Firestore.firestore()
   
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationItem.hidesBackButton = true
@@ -28,7 +27,13 @@ class ChatViewController: UIViewController {
   
   
   @IBAction func logout(_ sender: UIBarButtonItem) {
-    
+    let firebaseAuth = Auth.auth()
+    do {
+      try firebaseAuth.signOut()
+      self.navigationController?.popToRootViewController(animated: true)
+    } catch let signOutError as NSError {
+      print("Error signing out: %@", signOutError)
+    }
   }
   
   // 복습하기 ⭐️
