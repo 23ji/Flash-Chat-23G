@@ -61,6 +61,9 @@ class ChatViewController: UIViewController {
   
   func loadMessages() {
     db.collection(K.FStore.collectionName).order(by: K.FStore.dateField).addSnapshotListener { querySnapShot, error in
+      
+      self.messages = []
+      
       guard error == nil else { return }
       
       guard let documents = querySnapShot?.documents else { return }
