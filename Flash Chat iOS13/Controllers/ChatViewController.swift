@@ -100,7 +100,7 @@ extension ChatViewController: UITableViewDataSource {
 //    }
     
     cell.leftImage.isHidden = self.messages[indexPath.row].sender == email ? true : false
-    cell.rightImage.isHidden = self.messages[indexPath.row].sender == email ? true : false
+    cell.rightImage.isHidden = self.messages[indexPath.row].sender == email ? false : true
     
     cell.messageBubble.backgroundColor = self.messages[indexPath.row].sender == email ? UIColor(named: "BrandPurple") : UIColor(named: "BrandLightPurple")
     
