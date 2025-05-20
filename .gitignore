@@ -12,3 +12,5 @@ build/
 # Xcode 프로젝트 사용자 설정 무시
 xcuserdata/
 .xcuserstate
+
+.DS_Store
