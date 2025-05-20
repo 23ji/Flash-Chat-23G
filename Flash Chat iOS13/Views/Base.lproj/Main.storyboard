@@ -74,7 +74,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="US3-Om-UwZ"/>
                     <connections>
-                        <outlet property="titleLabel" destination="y7D-jv-BlJ" id="FxW-NJ-alE"/>
+                        <outlet property="titleLabel" destination="y7D-jv-BlJ" id="tIg-Jm-d6T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X0w-oB-wTX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
