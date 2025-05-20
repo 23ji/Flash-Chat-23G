@@ -78,6 +78,8 @@ class ChatViewController: UIViewController {
       }
       DispatchQueue.main.async {
         self.tableView.reloadData()
+        // 메세지 reload 시 스크롤을 맨 하단으로 내리기
+        self.tableView.scrollToRow(at: IndexPath(row: self.messages.count - 1, section: 0), at: .top, animated: true)
       }
     }
   }
