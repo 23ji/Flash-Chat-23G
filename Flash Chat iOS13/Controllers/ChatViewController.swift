@@ -51,11 +51,23 @@ class ChatViewController: UIViewController {
     guard let body = self.messageTextfield.text else { return }
     
     // ❗️복습하기
+//    db.collection(K.FStore.collectionName).addDocument(data: [
+//      "sender" : sender,
+//      "body" : body,
+//      "date" : Date().timeIntervalSince1970
+//    ])
+    
+    // ⭐️ 메세지가 정상적으로 보내진 후 텍스트 필트의 텍스트를 지워야하기 때문에!
     db.collection(K.FStore.collectionName).addDocument(data: [
       "sender" : sender,
       "body" : body,
       "date" : Date().timeIntervalSince1970
-    ])
+    ]) { [weak self] error in
+      if error == nil {
+        self?.messageTextfield.text = ""
+      }
+      print(error)
+    }
   }
   
   
