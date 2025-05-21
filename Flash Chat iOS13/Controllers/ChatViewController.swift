@@ -47,6 +47,8 @@ class ChatViewController: UIViewController {
     self.db.collection(K.FStore.collectionName).addSnapshotListener { querySnapShot, error in
       guard error == nil else { return }
       
+      self.messages = []
+      
       if let document = querySnapShot?.documents{
         for doc in document{
           let data = doc.data()
@@ -74,10 +76,9 @@ extension ChatViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    self.tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath)
-    let cell = self.tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath)
+    let cell = self.tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
     
-    self.messageTextfield.text = messages[indexPath.row].body
+    cell.label.text = messages[indexPath.row].body
     return cell
   }
   
