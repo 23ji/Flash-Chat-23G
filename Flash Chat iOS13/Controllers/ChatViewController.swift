@@ -7,6 +7,7 @@
 //
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseCore
 
 import UIKit
 
@@ -15,7 +16,7 @@ class ChatViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var messageTextfield: UITextField!
   
-  var message: [Message] = []
+  var messages: [Message] = []
   
   let db = Firestore.firestore()
   
@@ -23,6 +24,9 @@ class ChatViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationItem.setHidesBackButton(true, animated: true)
+    
+    self.tableView.dataSource = self
+    self.tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
     self.loadMessages()
   }
   
@@ -40,16 +44,40 @@ class ChatViewController: UIViewController {
   }
   
   func loadMessages() {
-    db.collection(K.FStore.collectionName).document().addSnapshotListener { querySnapShot, error in
+    self.db.collection(K.FStore.collectionName).addSnapshotListener { querySnapShot, error in
       guard error == nil else { return }
       
-      guard let document = querySnapShot?.data() else { return }
-      
-      for doc in document {
-        print(doc)
-        print(doc.key)
-        print(doc.value)
+      if let document = querySnapShot?.documents{
+        for doc in document{
+          let data = doc.data()
+          
+          let sender = data["sender"] as! String
+          let body = data["body"] as! String
+          
+          // Message 모델 객체를 하나 만든다.
+          var message = Message(sender: sender, body: body)
+          // messages에 append 한다.
+          self.messages.append(message)
+          print(self.messages)
+        }
+        DispatchQueue.main.async {
+          self.tableView.reloadData()
+        }
       }
     }
   }
+}
+
+extension ChatViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    self.messages.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    self.tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath)
+    let cell = self.tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath)
+    return cell
+  }
+  
+  
 }
