@@ -76,6 +76,8 @@ extension ChatViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     self.tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath)
     let cell = self.tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath)
+    
+    self.messageTextfield.text = messages[indexPath.row].body
     return cell
   }
   
