@@ -57,7 +57,7 @@ class ChatViewController: UIViewController {
           let body = data["body"] as! String
           
           // Message 모델 객체를 하나 만든다.
-          var message = Message(sender: sender, body: body)
+          let message = Message(sender: sender, body: body)
           // messages에 append 한다.
           self.messages.append(message)
           print(self.messages)
