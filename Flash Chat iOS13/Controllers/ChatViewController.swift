@@ -41,6 +41,13 @@ class ChatViewController: UIViewController {
   }
   
   @IBAction func sendPressed(_ sender: UIButton) {
+    guard let sender = Auth.auth().currentUser?.email else { return }
+    guard let body = self.messageTextfield.text else { return }
+    
+    db.collection(K.FStore.collectionName).addDocument(data: [
+      "sender": sender,
+      "body": body
+    ])
   }
   
   func loadMessages() {
@@ -53,8 +60,8 @@ class ChatViewController: UIViewController {
         for doc in document{
           let data = doc.data()
           
-          let sender = data["sender"] as! String
-          let body = data["body"] as! String
+          guard let sender = data["sender"] as? String else { return }
+          guard let body = data["body"] as? String else { return }
           
           // Message 모델 객체를 하나 만든다.
           let message = Message(sender: sender, body: body)
