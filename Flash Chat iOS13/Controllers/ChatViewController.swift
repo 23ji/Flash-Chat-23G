@@ -46,12 +46,13 @@ class ChatViewController: UIViewController {
     
     db.collection(K.FStore.collectionName).addDocument(data: [
       "sender": sender,
-      "body": body
+      "body": body,
+      "date": Date().timeIntervalSince1970
     ])
   }
   
   func loadMessages() {
-    self.db.collection(K.FStore.collectionName).addSnapshotListener { querySnapShot, error in
+    self.db.collection(K.FStore.collectionName).order(by: K.FStore.dateField).addSnapshotListener { querySnapShot, error in
       guard error == nil else { return }
       
       self.messages = []
