@@ -26,4 +26,10 @@ class MessageCell: UITableViewCell {
     // Configure the view for the selected state
   }
   
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    self.rightImage.isHidden = false
+    self.leftImage.isHidden = false
+  }
+  
 }

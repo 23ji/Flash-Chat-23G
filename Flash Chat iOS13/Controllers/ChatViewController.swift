@@ -79,6 +79,9 @@ extension ChatViewController: UITableViewDataSource {
     let cell = self.tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
     
     cell.label.text = messages[indexPath.row].body
+    
+    cell.leftImage.isHidden = Auth.auth().currentUser?.email == messages[indexPath.row].sender
+    cell.rightImage.isHidden = Auth.auth().currentUser?.email != messages[indexPath.row].sender
     return cell
   }
   
